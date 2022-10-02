@@ -3,6 +3,7 @@ package com.example.figurereviewsservice.controller;
 import com.example.figurereviewsservice.model.FigureReview;
 import com.example.figurereviewsservice.repository.FigureReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -37,18 +38,28 @@ public class FigureReviewController {
 
     @PutMapping("/figureReview")
     public FigureReview updateFigureReview(@RequestBody FigureReview updateFigureReview){
-        FigureReview retreivedFigureReview = figureReviewRepository.findFigureReviewByNameAndDate(updateFigureReview.getName(), updateFigureReview.getDate() );
+        FigureReview retrievedFigureReview = figureReviewRepository.findFigureReviewByNameAndDate(updateFigureReview.getName(), updateFigureReview.getDate() );
 
-        retreivedFigureReview.setName(updateFigureReview.getName());
-        retreivedFigureReview.setDate(updateFigureReview.getDate());
+        retrievedFigureReview.setName(updateFigureReview.getName());
+        retrievedFigureReview.setDate(updateFigureReview.getDate());
 
-        //Hier was ik gebleven!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        figureReviewRepository.save(retrievedFigureReview);
 
-        figureReviewRepository.save(retreivedFigureReview);
-
-        return retreivedFigureReview
-
+        return retrievedFigureReview;
     }
+
+    @DeleteMapping("figureReviews/name/{name}/date/{date}")
+    public ResponseEntity deleteFigureReview(@PathVariable String name, @PathVariable Date date){
+        FigureReview figureReview = figureReviewRepository.findFigureReviewByNameAndDate(name, date);
+        if(figureReview!=null){
+            figureReviewRepository.delete(figureReview);
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
 
 

@@ -9,11 +9,6 @@ import java.util.List;
 
 @Repository
 public interface FigureReviewRepository extends MongoRepository<FigureReview, String> {
-    //Get /FigureReviews/{Name}
-    //Get /FigureNamesbyStars/Stars/{stars}
-    //Post /FigureReview
-    //Put /FigureReview
-    //Delete /FigureReview
 
     List<FigureReview> findFigureReviewsByName(String name);
     List<FigureReview> findFigureReviewByStars(Integer stars);
