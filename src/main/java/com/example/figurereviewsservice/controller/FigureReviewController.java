@@ -26,6 +26,12 @@ public class FigureReviewController {
         }
     };
 
+
+    @GetMapping("/figureReviews")
+    public List<FigureReview> getFigureReviewByName(){
+        return figureReviewRepository.findAll();
+    }
+
     @GetMapping("/figureReviews/{name}")
     public List<FigureReview> getFigureReviewByName(@PathVariable String name){
         return figureReviewRepository.findFigureReviewsByName(name);
@@ -70,12 +76,5 @@ public class FigureReviewController {
         }
     };
 
-
-
-
-
-
-
-
-
 }
+
