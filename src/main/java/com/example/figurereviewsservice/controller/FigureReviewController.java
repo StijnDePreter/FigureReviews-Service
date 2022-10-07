@@ -26,6 +26,7 @@ public class FigureReviewController {
         }
     };
 
+
     @GetMapping("/figureReviews")
     public List<FigureReview> getFigureReviewByName(){
         return figureReviewRepository.findAll();
@@ -74,4 +75,6 @@ public class FigureReviewController {
             return ResponseEntity.notFound().build();
         }
     };
+
 }
+
