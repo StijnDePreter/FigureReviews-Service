@@ -20,6 +20,12 @@ public class FigureReview {
     public FigureReview() {
     }
 
+    public FigureReview(String name, String textReview, Integer stars) {
+        Name = name;
+        this.textReview = textReview;
+        this.stars = stars;
+    }
+
     public String getId() {
         return id;
     }
