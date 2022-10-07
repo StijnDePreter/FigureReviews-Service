@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,16 @@ public class FigureReviewController {
 
     @Autowired
     private FigureReviewRepository figureReviewRepository;
+
+    @PostConstruct
+    public void fillDB(){
+        if(figureReviewRepository.count()==0){
+            figureReviewRepository.save(new FigureReview("Duck" ,"Stukken passen niet goed", 2));
+            figureReviewRepository.save(new FigureReview("Duck" ,"Moeilijke stap", 5));
+            figureReviewRepository.save(new FigureReview("Car" ,"eenvoudige stap", 4));
+            figureReviewRepository.save(new FigureReview("Chicken" ,"eenvoudige stap", 2));
+        }
+    };
 
     @GetMapping("/figureReviews/{name}")
     public List<FigureReview> getFigureReviewByName(@PathVariable String name){
@@ -57,7 +68,11 @@ public class FigureReviewController {
         }else{
             return ResponseEntity.notFound().build();
         }
-    }
+    };
+
+
+
+
 
 
 
