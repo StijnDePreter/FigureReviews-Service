@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface FigureReviewRepository extends MongoRepository<FigureReview, String> {
 
-    List<FigureReview> findFigureReviewsByName(String name);
+    List<FigureReview> findFigureReviewsByFigureName(String figureName);
     List<FigureReview> findFigureReviewByStars(Integer stars);
     List<FigureReview> findAll();
-    FigureReview findFigureReviewByNameAndDate(String name, Date date);
+    FigureReview findFigureReviewByFigureNameAndDate(String name, Date date);
 
 
 

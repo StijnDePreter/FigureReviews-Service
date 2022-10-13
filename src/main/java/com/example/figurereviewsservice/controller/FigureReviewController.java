@@ -28,13 +28,13 @@ public class FigureReviewController {
 
 
     @GetMapping("/figureReviews")
-    public List<FigureReview> getFigureReviewByName(){
+    public List<FigureReview> getFigureReviews(){
         return figureReviewRepository.findAll();
     }
 
-    @GetMapping("/figureReviews/{name}")
-    public List<FigureReview> getFigureReviewByName(@PathVariable String name){
-        return figureReviewRepository.findFigureReviewsByName(name);
+    @GetMapping("/figureReviewsByName/{figureName}")
+    public List<FigureReview> getFigureReviewsByFigureName(@PathVariable String figureName){
+        return figureReviewRepository.findFigureReviewsByFigureName(figureName);
     }
 
     @GetMapping("/figureNamesByStars/{stars}")
@@ -44,7 +44,7 @@ public class FigureReviewController {
 
     @GetMapping("/figureReviewByNameAndDate/{name}/{date}")
     public FigureReview getFigureReviewByName(@PathVariable String name,@PathVariable Date date) {
-        return figureReviewRepository.findFigureReviewByNameAndDate(name,date);
+        return figureReviewRepository.findFigureReviewByFigureNameAndDate(name,date);
     }
 
     @PostMapping ("/figureReview")
@@ -55,9 +55,9 @@ public class FigureReviewController {
 
     @PutMapping("/figureReview")
     public FigureReview updateFigureReview(@RequestBody FigureReview updateFigureReview){
-        FigureReview retrievedFigureReview = figureReviewRepository.findFigureReviewByNameAndDate(updateFigureReview.getName(), updateFigureReview.getDate() );
+        FigureReview retrievedFigureReview = figureReviewRepository.findFigureReviewByFigureNameAndDate(updateFigureReview.getFigureName(), updateFigureReview.getDate() );
 
-        retrievedFigureReview.setName(updateFigureReview.getName());
+        retrievedFigureReview.setFigureName(updateFigureReview.getFigureName());
         retrievedFigureReview.setDate(updateFigureReview.getDate());
 
         figureReviewRepository.save(retrievedFigureReview);
@@ -67,7 +67,7 @@ public class FigureReviewController {
 
     @DeleteMapping("figureReviews/name/{name}/date/{date}")
     public ResponseEntity deleteFigureReview(@PathVariable String name, @PathVariable Date date){
-        FigureReview figureReview = figureReviewRepository.findFigureReviewByNameAndDate(name, date);
+        FigureReview figureReview = figureReviewRepository.findFigureReviewByFigureNameAndDate(name, date);
         if(figureReview!=null){
             figureReviewRepository.delete(figureReview);
             return ResponseEntity.ok().build();
